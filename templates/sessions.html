@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="sessions-page-container page-content">
+
+  <div class="section-intro">
+    <!-- Header container contains (text, add button) -->
+    <div class="header-container">
+      <h1>Sessions Editor</h1>
+      <div class="add-session-input">
+        <select aria-placeholder="Type">
+          <option disabled selected hidden>Type</option>
+          <option>1:1</option>
+          <option>Group</option>
+        </select>
+        <i class="fa-regular fa-circle-xmark" onclick="close_input()"></i>
+        <input type="text" placeholder="session name">
+      </div>
+      <button class="add-session-btn btn" onclick="add_session_type()"><i class="fa-solid fa-plus"></i>Add Session Type</button>
+    </div>
+
+    <p class="desc">Mange your Sessions (add, delete, edit, etc...)</p>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <div class="header">
+      <h3 class="card-title">Sessions</h3>
+      <p class="card-subtitle">All Sessions You Give</p>
+    </div>
+
+    <!-- table container -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Session Type</th>
+            <th>Type</th>
+            <th>Total Students</th>
+            <th>Hours</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr>
+            <td>1:1 Sessons</td>
+            <td>1:1</td>
+            <td>29</td>
+            <td>49</td>
+          </tr> -->
+        
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

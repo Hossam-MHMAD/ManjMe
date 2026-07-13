@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ManjMe</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="static/style.css">
+  <link rel="icon" href="/static/icon.png">
+</head>
+<body>
+  <div class="app-container">
+
+    <div class="nav-container">
+
+      <!-- top-navigation -->
+      <nav>
+  
+        <!-- left side of the navigation-bar -->
+        <div class="nav-left">
+  
+          <a href="{{ url_for('home') }}" class="logo">
+            <div class="logo-icon">
+              <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <span class="logo-text">ManjMe</span>
+          </a>
+  
+          <div class="nav-menu">
+            <!-- url_for goes to the function u defined in backend -->
+            <!-- href="/home" goes to the route like href="/home" should see route like this (@app.route("/home")) -->
+            <div class="nav-item">
+              <a href="/" class="logo-link {{ 'active' if request.endpoint == 'home' else '' }}">
+                <i class="fa-solid fa-house"></i>
+                Home
+              </a>
+            </div>
+            
+            <div class="nav-item">
+              <a href="{{ url_for('sessions') }}" class="logo-link {{ 'active' if request.endpoint == 'sessions' else '' }}">
+                <i class="fa-solid fa-book"></i>
+                Sessions Editor
+              </a>
+            </div>
+  
+            <div class="nav-item">
+              <a href="#" class="logo-link">
+                <i class="fa-solid fa-layer-group"></i>
+                Levels
+              </a>
+            </div>
+            
+            <div class="nav-item">
+              <a href="#" class="logo-link">
+                <i class="fa-solid fa-people-group"></i>
+                Students
+              </a>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+        <!-- right side of the navigation-bar -->
+        <div class="nav-right">
+          <button class="user-menu">
+            <div class="user-avatar">
+              K
+            </div>
+            <p class="user-name">Kamar</p>
+          </button>
+        </div>
+  
+      </nav>
+
+    </div>
+
+    {% block content %}{% endblock %} <!-- Here Should Be The Page Content (Home, 1:1, Group, etc...)-->
+
+    <div class="footer-container">
+      © 2026 ManjMe Admin. Designed by  <a href="#">Hoss</a>
+    </div>
+  </div> <!-- the end of the app -->
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
