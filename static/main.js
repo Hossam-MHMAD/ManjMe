@@ -1,13 +1,14 @@
 const APIs = {
-  sessions: "/api/sessions-types"
+  sessions: "/api/sessions-types",
+  levels: "/api/levels"
 }
 
 function close_input() {
-  const add_session_input_container = document.querySelector(".add-session-input")
+  const add_input_container = document.querySelector(".closed-input")
 
-  add_session_input_container.style.left = "90%"
-  add_session_input_container.style.width = "19%";
-  add_session_input_container.style.visibility = "hidden";
+  add_input_container.style.left = "90%"
+  add_input_container.style.width = "10%";
+  add_input_container.style.visibility = "hidden";
 }
 
 // this function will be used in 2 pages (home, sessions)
@@ -63,6 +64,31 @@ async function add_session_type() {
   drop_down_tag.value = "Type";
   close_input();
   init_sessions_page();
+}
+
+// level page
+async function add_level() {
+  const add_level_input_container = document.querySelector(".add-level-input")
+  const add_level_input = document.querySelector(".add-level-input input")
+  const level_name = add_level_input.value;
+
+  if (level_name === "") {
+    console.log("EMPTY INPUT")
+    add_level_input_container.style.visibility = "visible";
+    add_level_input_container.style.width = "25%";
+    add_level_input_container.style.left = "52%"
+    return;
+  };
+
+  await fetch(APIs.levels, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({name: level_name})
+  })
+
+  add_level_input.value = "";
+  close_input();
+  // init_sessions_page();
 }
 
 // home page

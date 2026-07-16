@@ -23,6 +23,7 @@
 html {
   background-color: var(--bg-secondary);
   scroll-behavior: smooth;
+  overflow-x: clip
 }
 
 body {
@@ -32,6 +33,7 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   transition: var(--transition);
+  overflow-x: clip
 }
 
 a {
@@ -222,14 +224,14 @@ nav {
 }
 
 
-/* sessions page style */
+/* sessions page and levels page style */
 .header-container {
   display: flex;
   justify-content: space-between;
   position: relative;
 }
 
-.header-container select {
+.header-container select { /* just for sessions page*/
   position: absolute;
   left: -112px;
   height: 100%;
@@ -240,7 +242,8 @@ nav {
   color: var(--text-primary);
 }
 
-.header-container .add-session-input {
+.header-container .add-session-input,
+.header-container .add-level-input {
   position: absolute;
   left: 81%;
   width: 19%;
@@ -249,7 +252,8 @@ nav {
   visibility: hidden;
 }
 
-.header-container .add-session-input i {
+.header-container .add-session-input i,
+.header-container .add-level-input i {
   background-color: var(--bg-primary);
   position: absolute;
   left: -5px;
@@ -258,7 +262,8 @@ nav {
   cursor: pointer;
 }
 
-.header-container .add-session-input input {
+.header-container .add-session-input input,
+.header-container .add-level-input input {
   height: 100%;
   width: 100%;
   padding: 0.75rem 1rem;
@@ -268,23 +273,27 @@ nav {
   color: var(--text-primary);
 }
 
-.header-container .add-session-input input:hover {
+.header-container .add-session-input input:hover,
+.header-container .add-level-input input:hover {
   border-color: var(--text-secondary);
 }
 
-.header-container .add-session-input input:focus {
+.header-container .add-session-input input:focus,
+.header-container .add-level-input input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-light);
 }
 
-.header-container .add-session-btn {
+.header-container .add-session-btn,
+.header-container .add-level-btn {
   background: var(--accent);
   color: white;
   z-index: 1;
 }
 
-.header-container .add-session-btn:hover {
+.header-container .add-session-btn:hover,
+.header-container .add-level-btn:hover {
   background-color: var(--accent-hover);
 }
 

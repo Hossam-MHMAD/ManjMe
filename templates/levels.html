@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="levels-page-container page-content">
+  <div class="section-intro">
+    <div class="header-container">
+      <h1>Levels</h1>
+      <div class="add-level-input closed-input"> <!-- This will have position absolute-->
+        <i class="fa-regular fa-circle-xmark" onclick="close_input()"></i>
+        <input type="text" placeholder="level name">
+      </div>
+      <button class="add-level-btn btn" onclick="add_level()"><i class="fa-solid fa-plus"></i>Add Level</button>
+    </div>
+    <p class="desc">Students Levels</p>
+  </div>
+</div>
+
+{% endblock %}

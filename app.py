@@ -116,6 +116,35 @@ def add_session():
 
   return jsonify({"session_type_id": cur.lastrowid}), 201
 
+@app.route("/levels")
+def levels():
+  return render_template("levels.html")
+
+@app.route("/api/levels", methods=["GET"])
+def get_levels():
+  db = get_db()
+  curs = db.cursor()
+
+  rows = curs.execute("SELECT name FROM levels").fetchall()
+
+  data = [dict(row) for row in rows]
+  return jsonify(data)
+
+@app.route("/api/levels", methods=["POST"])
+def add_level():
+  req = request.get_json()
+
+  if not req["name"]:
+    return jsonify({"error": "Level Name Is Required"}), 400
+
+  db = get_db()
+  curs = db.cursor()
+
+  curs.execute("INSERT INTO levels(name) VALUES(?)", (req["name"],))
+  db.commit()
+
+  return jsonify({"level_id": curs.lastrowid}), 201
+
 if __name__ == "__main__":
   init_db()
   app.run()
