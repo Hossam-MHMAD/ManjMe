@@ -297,6 +297,34 @@ nav {
   background-color: var(--accent-hover);
 }
 
+.levels-boxes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  margin-top: 20px;
+}
+
+.level {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 62px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.level:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.1);
+}
+
 /* --------- card style ---------*/
 .card {
   background: var(--bg-primary);

@@ -67,6 +67,27 @@ async function add_session_type() {
 }
 
 // level page
+async function load_levels() {
+  const response = await fetch(APIs.levels)
+  const levels = await response.json()
+
+  return levels;
+}
+
+async function init_levels_page() {
+  const data = await load_levels();
+  const levels_container = document.querySelector(".levels-boxes")
+
+  levels_container.innerHTML = "";
+
+  data.forEach(level => {    
+    const level_div = `
+    <div class="level">${level.name}</div>
+    `
+    levels_container.innerHTML += level_div;
+  });
+}
+
 async function add_level() {
   const add_level_input_container = document.querySelector(".add-level-input")
   const add_level_input = document.querySelector(".add-level-input input")
@@ -88,7 +109,7 @@ async function add_level() {
 
   add_level_input.value = "";
   close_input();
-  // init_sessions_page();
+  init_levels_page();
 }
 
 // home page
@@ -130,5 +151,7 @@ async function init_home_page() {
 if (document.querySelector(".sessions-page-container")) {
   init_sessions_page();
 } else if (document.querySelector(".home-page-container")) {
-  init_home_page()
+  init_home_page();
+} else if (document.querySelector(".levels-page-container")) {
+  init_levels_page();
 }
