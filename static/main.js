@@ -82,7 +82,9 @@ async function init_levels_page() {
 
   data.forEach(level => {    
     const level_div = `
-    <div class="level">${level.name}</div>
+    <div class="level">
+      <a href="/levels/${level.id}">${level.name}</a>
+    </div>
     `
     levels_container.innerHTML += level_div;
   });

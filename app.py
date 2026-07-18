@@ -125,7 +125,7 @@ def get_levels():
   db = get_db()
   curs = db.cursor()
 
-  rows = curs.execute("SELECT name FROM levels").fetchall()
+  rows = curs.execute("SELECT id, name FROM levels").fetchall()
 
   data = [dict(row) for row in rows]
   return jsonify(data)
@@ -144,6 +144,12 @@ def add_level():
   db.commit()
 
   return jsonify({"level_id": curs.lastrowid}), 201
+
+@app.route("/levels/<int:level_id>")
+def level(level_id):
+  return render_template("level.html")
+
+
 
 if __name__ == "__main__":
   init_db()
