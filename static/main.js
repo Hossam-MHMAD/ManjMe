@@ -1,6 +1,7 @@
 const APIs = {
   sessions: "/api/sessions-types",
-  levels: "/api/levels"
+  levels: "/api/levels",
+  sessions: "/api/level/sessiions"
 }
 
 function close_input() {
@@ -66,7 +67,7 @@ async function add_session_type() {
   init_sessions_page();
 }
 
-// level page
+// levels page
 async function load_levels() {
   const response = await fetch(APIs.levels)
   const levels = await response.json()
@@ -112,6 +113,35 @@ async function add_level() {
   add_level_input.value = "";
   close_input();
   init_levels_page();
+}
+
+// level page
+
+function edit_mode() {
+  const inputs_section = document.querySelector(".view-add-section")
+  const current_role = document.querySelector(".view-add-section .section-current-role")
+  const input = document.querySelector(".view-add-section input")
+  const textarea = document.querySelector(".view-add-section textarea")
+
+  input.readOnly = false;
+  textarea.readOnly = false;
+  current_role.textContent = "edit mode";
+  current_role.style.color = "#38BDF8";
+}
+
+async function add_lesson() {
+  const current_role = document.querySelector(".view-add-section .section-current-role")
+  const input = document.querySelector(".view-add-section input")
+  const textarea = document.querySelector(".view-add-section textarea")
+
+  if (current_role.textContent === "view mode") edit_mode();
+  else if(current_role.textContent === "edit mode") {
+    if (input.value.trim() === "" || textarea.value.trim() === "" || !/^\d+$/.test(input.value.trim())) return;
+    const num = Number(input.value.trim())
+    if (num < 1 || num > 8) return;
+
+    
+  }
 }
 
 // home page

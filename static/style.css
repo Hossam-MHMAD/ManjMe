@@ -17,6 +17,7 @@
     --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
     --transition: all 0.2s ease;
+    --danger: #EF4444;
 }
 
 /* base styles */
@@ -328,6 +329,89 @@ nav {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+/* level page style*/
+.view-add-section {
+  position: relative;
+  margin: 30px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-current-role {
+  position: absolute;
+  padding: 6px 12px;
+  left: calc(100% - 115px);
+  top: -39px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  color: var(--danger);
+  border-bottom: none;
+}
+
+.view-add-section input{
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 22px;
+}
+
+.view-add-section textarea {
+  margin-top: 20px;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  height: 300px;
+  resize: none;
+  font-size: 22px;
+  white-space: pre-wrap;
+}
+
+.view-add-section button {
+  background: var(--accent);
+  color: white;
+  margin-top: 15px;
+  align-self: flex-end;
+}
+
+.view-add-section button:hover {
+  background-color: var(--accent-hover);
+}
+
+.sessions-container {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.sessions-container div {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: var(--transition);
+  height: 200px;
+  font-size: 30px;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sessions-container div:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: scale(1.1);
 }
 
 /* --------- card style ---------*/

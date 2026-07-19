@@ -44,16 +44,9 @@ def init_db():
   CREATE TABLE IF NOT EXISTS lessons (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     number INTEGER NOT NULL,
+    questions TEXT NOT NULL,
     level_id INTEGER,
     FOREIGN KEY (level_id) REFERENCES levels (id)
-  );
-  
-  CREATE TABLE IF NOT EXISTS questions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    question_text TEXT NOT NULL,
-    question_order INTEGER,
-    lesson_id INTEGER,
-    FOREIGN KEY (lesson_id) REFERENCES lessons (id)
   );
   
   CREATE TABLE IF NOT EXISTS students (
@@ -149,7 +142,21 @@ def add_level():
 def level(level_id):
   return render_template("level.html")
 
+@app.route("/api/level/sessions", methods=["POST"])
+def add_lesson():
+  req = request.get_json()
 
+  if not req["number"] or not req["content"] or not req["level_id"]:
+    return {"error": "session title, content and level id are required"}, 400
+  
+  db = get_db()
+  curs = db.cursor()
+
+  curs.execute("INSERT INTO lessons(number, questions, level_id) VALUES(?,?,?)", (req["number"], req["content"], req["level_id"]))
+
+  db.commit()
+
+  return jsonify({"lesson_id": curs.lastrowid}), 201
 
 if __name__ == "__main__":
   init_db()
