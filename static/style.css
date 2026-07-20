@@ -411,7 +411,13 @@ nav {
 .sessions-container div:hover {
   border-color: var(--accent);
   color: var(--accent);
-  transform: scale(1.1);
+  transform: scale(1.03);
+}
+
+.sessions-container div.choosed {
+  border-color: var(--danger);
+  color: var(--danger);
+  transform: scale(1.03);
 }
 
 /* --------- card style ---------*/

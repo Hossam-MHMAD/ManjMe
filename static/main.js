@@ -1,7 +1,8 @@
 const APIs = {
   sessions: "/api/sessions-types",
   levels: "/api/levels",
-  sessions: "/api/level/sessiions"
+  lessons: (level_id) => `/api/${level_id}/sessions`,
+  lesson: (lesson_id) => `/api/${lesson_id}/session`
 }
 
 function close_input() {
@@ -116,17 +117,35 @@ async function add_level() {
 }
 
 // level page
-
 function edit_mode() {
   const inputs_section = document.querySelector(".view-add-section")
   const current_role = document.querySelector(".view-add-section .section-current-role")
   const input = document.querySelector(".view-add-section input")
   const textarea = document.querySelector(".view-add-section textarea")
 
+  const choosed_lesson = document.querySelector(".choosed")
+  if (choosed_lesson) choosed_lesson.classList.remove("choosed");
+
   input.readOnly = false;
   textarea.readOnly = false;
+  input.value = "";
+  textarea.value = "";
   current_role.textContent = "edit mode";
   current_role.style.color = "#38BDF8";
+}
+
+function view_mode() {
+  const inputs_section = document.querySelector(".view-add-section")
+  const current_role = document.querySelector(".view-add-section .section-current-role")
+  const input = document.querySelector(".view-add-section input")
+  const textarea = document.querySelector(".view-add-section textarea")
+
+  input.value = "";
+  textarea.value = "";
+  input.readOnly = true;
+  textarea.readOnly = true;
+  current_role.textContent = "view mode";
+  current_role.style.color = "#EF4444";
 }
 
 async function add_lesson() {
@@ -140,8 +159,58 @@ async function add_lesson() {
     const num = Number(input.value.trim())
     if (num < 1 || num > 8) return;
 
-    
+    const level_id = window.location.pathname.split("/").pop();
+
+    await fetch(APIs.lessons(level_id), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({number: num, content: textarea.value.trim()})
+    })
+
+    view_mode();
+    init_level_page()
   }
+}
+
+async function load_lessons() {
+  const level_id = parseInt(window.location.pathname.split("/").filter(Boolean).pop());
+  const response = await fetch(APIs.lessons(level_id))
+  const data = await response.json()
+
+  return data;
+}
+
+async function init_level_page() {
+  const data = await load_lessons();
+
+  const lessons_container = document.querySelector(".sessions-container");
+  const section_intro_level = document.querySelector(".section-intro span")
+  lessons_container.innerHTML = "";
+  section_intro_level.textContent = data.level_name;
+
+  data.lessons.forEach(lesson => {
+    const lesson_tag = `
+    <div id="${lesson.id}" onclick="get_lesson(${lesson.id}, this)">Session ${lesson.number}</div>
+    `;
+
+    lessons_container.innerHTML += lesson_tag;
+  })
+}
+
+async function get_lesson(lesson_id, lesson) {
+  view_mode();
+  const response = await fetch(APIs.lesson(lesson_id))
+  const data = await response.json()
+
+  const input = document.querySelector(".view-add-section input")
+  const textarea = document.querySelector(".view-add-section textarea")
+
+  const choosed_lesson = document.querySelector(".choosed")
+  if (choosed_lesson) choosed_lesson.classList.remove("choosed");
+  lesson.classList.add("choosed")
+
+  input.value = data.number;
+  textarea.value = data.questions;
 }
 
 // home page
@@ -186,4 +255,6 @@ if (document.querySelector(".sessions-page-container")) {
   init_home_page();
 } else if (document.querySelector(".levels-page-container")) {
   init_levels_page();
+} else if (document.querySelector(".level-page-container")) {
+  init_level_page();
 }

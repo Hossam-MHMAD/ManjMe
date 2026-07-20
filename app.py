@@ -142,21 +142,40 @@ def add_level():
 def level(level_id):
   return render_template("level.html")
 
-@app.route("/api/level/sessions", methods=["POST"])
-def add_lesson():
+@app.route("/api/<int:level_id>/sessions", methods=["POST"])
+def add_lesson(level_id):
   req = request.get_json()
 
-  if not req["number"] or not req["content"] or not req["level_id"]:
-    return {"error": "session title, content and level id are required"}, 400
+  if not req["number"] or not req["content"]:
+    return {"error": "session title, content are required"}, 400
   
   db = get_db()
   curs = db.cursor()
 
-  curs.execute("INSERT INTO lessons(number, questions, level_id) VALUES(?,?,?)", (req["number"], req["content"], req["level_id"]))
+  curs.execute("INSERT INTO lessons(number, questions, level_id) VALUES(?,?,?)", (req["number"], req["content"], level_id))
 
   db.commit()
 
   return jsonify({"lesson_id": curs.lastrowid}), 201
+
+@app.route("/api/<int:level_id>/sessions")
+def get_lessons(level_id):
+  db = get_db()
+
+  curs = db.cursor()
+  level_name = curs.execute("SELECT name FROM levels WHERE id = ?", (level_id,)).fetchone()
+  rows = curs.execute("SELECT * FROM lessons WHERE level_id = ?", (level_id,)).fetchall()
+
+  data = [dict(row) for row in rows]
+
+  return jsonify({"level_name": level_name["name"], "lessons": data}), 200
+
+@app.route("/api/<int:lesson_id>/session")
+def get_lesson(lesson_id):
+  db = get_db()
+  curs = db.cursor()
+  row = curs.execute("SELECT * FROM lessons WHERE id = ?", (lesson_id,)).fetchone()
+  return jsonify(dict(row))
 
 if __name__ == "__main__":
   init_db()
