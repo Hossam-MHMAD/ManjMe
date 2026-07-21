@@ -51,7 +51,7 @@
             </div>
             
             <div class="nav-item">
-              <a href="#" class="logo-link">
+              <a href="{{ url_for('students') }}" class="logo-link {{ 'active' if request.endpoint == 'students' else '' }}">
                 <i class="fa-solid fa-people-group"></i>
                 Students
               </a>

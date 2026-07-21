@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="students-page-container page-content">
+  <div class="sections">
+    <div class="students-section">
+      <div class="input_container">
+        <input type="text" placeholder="Student Name">
+      </div>  
+      <div class="students-boxes">
+
+        <div class="student">
+          <h1 class="student-name">Ahmed</h1>
+          <div class="details">
+            <div class="student-level">Level: <span>A1</span></div>
+            <div class="next-lesson-number">Next Lesson: <span>5</span></div>
+          </div>
+        </div>
+
+        <div class="student">
+          <h1 class="student-name">Ahmed</h1>
+          <div class="details">
+            <div class="student-level">Level: <span>A1</span></div>
+            <div class="next-lesson-number">Next Lesson: <span>5</span></div>
+          </div>
+        </div>
+
+        <div class="student">
+          <h1 class="student-name">Ahmed</h1>
+          <div class="details">
+            <div class="student-level">Level: <span>A1</span></div>
+            <div class="next-lesson-number">Next Lesson: <span>5</span></div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="add-student-section">
+      <button class="add-student-btn btn">Add Student</button>
+      <div class="add-student-inputs">
+        <input type="text" placeholder="student name">
+        <input type="text" placeholder="student level">
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

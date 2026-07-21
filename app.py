@@ -74,7 +74,7 @@ def init_db():
 
 @app.route("/")
 def home():
-  return render_template("index.html")
+  return render_template("home.html")
 
 @app.route("/sessions-editor")
 def sessions():
@@ -176,6 +176,36 @@ def get_lesson(lesson_id):
   curs = db.cursor()
   row = curs.execute("SELECT * FROM lessons WHERE id = ?", (lesson_id,)).fetchone()
   return jsonify(dict(row))
+
+@app.route("/students")
+def students():
+  return render_template("students.html")
+
+@app.route("/api/students")
+def get_students():
+  db = get_db()
+  curs = db.cursor()
+  rows = curs.execute("SELECT * FROM students").fetchall()
+
+  data = [dict(row) for row in rows]
+
+  return data
+
+@app.route("/api/students", methods=["POST"])
+def add_student():
+  req = request.get_json()
+
+  if not req["name"] or not req["level_id"] or not req["next_lesson_num"]:
+    return {"error": "all student data is required (name, level, next lesson number)"}, 400
+  
+  db = get_db()
+  curs = db.cursor()
+
+  curs.execute("INSERT INTO students(name, level_id, next_lesson) VALUES(?,?,?)", (req['name'], req['level_id'], req['next_lesson_num']))
+
+  db.commit()
+
+  return {"student_id": curs.lastrowid}, 201
 
 if __name__ == "__main__":
   init_db()
