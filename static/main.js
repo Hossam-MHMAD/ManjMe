@@ -2,7 +2,8 @@ const APIs = {
   sessions: "/api/sessions-types",
   levels: "/api/levels",
   lessons: (level_id) => `/api/${level_id}/sessions`,
-  lesson: (lesson_id) => `/api/${lesson_id}/session`
+  lesson: (lesson_id) => `/api/${lesson_id}/session`,
+  students: "/api/students"
 }
 
 function close_input() {
@@ -27,7 +28,7 @@ async function init_sessions_page() {
   const table_body = document.querySelector("tbody");
 
   table_body.innerHTML = "";
-  
+
   sessions_types.forEach(session_type => {
     const row = `
       <tr>
@@ -59,7 +60,7 @@ async function add_session_type() {
   await fetch(APIs.sessions, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({name: session_name, type: drop_down_tag.value})
+    body: JSON.stringify({ name: session_name, type: drop_down_tag.value })
   })
 
   add_session_input.value = "";
@@ -82,7 +83,7 @@ async function init_levels_page() {
 
   levels_container.innerHTML = "";
 
-  data.forEach(level => {    
+  data.forEach(level => {
     const level_div = `
     <div class="level">
       <a href="/levels/${level.id}">${level.name}</a>
@@ -108,7 +109,7 @@ async function add_level() {
   await fetch(APIs.levels, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({name: level_name})
+    body: JSON.stringify({ name: level_name })
   })
 
   add_level_input.value = "";
@@ -154,7 +155,7 @@ async function add_lesson() {
   const textarea = document.querySelector(".view-add-section textarea")
 
   if (current_role.textContent === "view mode") edit_mode();
-  else if(current_role.textContent === "edit mode") {
+  else if (current_role.textContent === "edit mode") {
     if (input.value.trim() === "" || textarea.value.trim() === "" || !/^\d+$/.test(input.value.trim())) return;
     const num = Number(input.value.trim())
     if (num < 1 || num > 8) return;
@@ -164,7 +165,7 @@ async function add_lesson() {
     await fetch(APIs.lessons(level_id), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({number: num, content: textarea.value.trim()})
+      body: JSON.stringify({ number: num, content: textarea.value.trim() })
     })
 
     view_mode();
@@ -213,6 +214,99 @@ async function get_lesson(lesson_id, lesson) {
   textarea.value = data.questions;
 }
 
+// students page
+
+function select(element) {
+  const dropdownParent = element.closest('.dropdown');
+  const button = dropdownParent.querySelector('button');
+  button.textContent = element.textContent;
+  button.id = element.id;
+}
+
+async function load_students() {
+  const response = await fetch(APIs.students);
+  const data = await response.json();
+
+  return data;
+}
+
+async function add_student() {
+  const name_tag = document.querySelector(".student-name-input")
+  const level_tag = document.querySelector("button.student-level")
+  const nxt_lesson_tag = document.querySelector(".student-next-lesson")
+
+  const name = name_tag.value.trim();
+  const level = level_tag.id;
+  const nxt_lesson = nxt_lesson_tag.id;
+
+  if (!name || !level || !nxt_lesson) return;
+
+  await fetch(APIs.students, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ student_name: name, level_id: level, student_nxt_lesson: nxt_lesson })
+  })
+
+  name_tag.value = "";
+  level_tag.textContent = "Student Level";
+  nxt_lesson_tag.textContent = "Next Lesson";
+  level_tag.id = "";
+  nxt_lesson_tag.id = "";
+  init_students_page();
+}
+
+async function init_students_page() {
+  const levels = await load_levels()
+  const students = await load_students()
+
+  const levels_dropdown = document.querySelector(".levels-dropdown");
+  const students_boxes_container = document.querySelector(".students-boxes")
+
+  levels_dropdown.innerHTML = "";
+  students_boxes_container.innerHTML = "";
+
+  levels.forEach(level => {
+    const level_tag = `
+    <li><a class="dropdown-item" id="${level.id}" onclick="select(this)">${level.name}</a></li>
+    `;
+    levels_dropdown.innerHTML += level_tag;
+  });
+
+  students.forEach(student => {
+    const student_tag = `
+    <a href="/students/${student.id}" class="student">
+      <h1 class="student-name">${student.name}</h1>
+      <div class="details">
+        <div class="student-level">Level: <span>${student.level_name}</span></div>
+        <div class="next-lesson-number">Next Lesson: <span>${student.next_lesson}</span></div>
+      </div>
+    </a>
+    `
+    students_boxes_container.innerHTML += student_tag;
+  })
+}
+
+
+function filter_students() {
+  const input_field = document.querySelector("input.search-bar")
+  const text = input_field.value.trim().toLowerCase()
+  
+  const students = document.querySelectorAll(".student");
+  
+  students.forEach(student => {
+    
+    const title = student.querySelector("h1.student-name").textContent.toLowerCase();
+    
+    if (title.includes(text)) {
+      student.style.display = "";
+    } else {
+      student.style.display = "none";
+    }
+  });
+}
+
+
+
 // home page
 async function init_home_page() {
   const response = await load_sessions_types();
@@ -248,6 +342,7 @@ async function init_home_page() {
   })
 }
 
+
 // only run it on the sessions page
 if (document.querySelector(".sessions-page-container")) {
   init_sessions_page();
@@ -257,4 +352,9 @@ if (document.querySelector(".sessions-page-container")) {
   init_levels_page();
 } else if (document.querySelector(".level-page-container")) {
   init_level_page();
+} else if (document.querySelector(".students-page-container")) {
+  init_students_page();
+  document.querySelector("input.search-bar").addEventListener("input", function() {
+    filter_students()
+  })
 }

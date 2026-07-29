@@ -5,19 +5,19 @@
 }
 
 :root {
-    --bg-primary: #0F0F0F;
-    --bg-secondary: #171717;
-    --bg-surface: #1F1F1F;
-    --border-color: #2E2E2E;
-    --text-primary: #F5F5F5;
-    --text-secondary: #A3A3A3;
-    --accent: #38BDF8;
-    --accent-hover: #008fcf;
-    --accent-light: rgba(56, 189, 248, 0.15);
-    --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-    --transition: all 0.2s ease;
-    --danger: #EF4444;
+  --bg-primary: #0F0F0F;
+  --bg-secondary: #171717;
+  --bg-surface: #1F1F1F;
+  --border-color: #2E2E2E;
+  --text-primary: #F5F5F5;
+  --text-secondary: #A3A3A3;
+  --accent: #38BDF8;
+  --accent-hover: #008fcf;
+  --accent-light: rgba(56, 189, 248, 0.15);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --transition: all 0.2s ease;
+  --danger: #EF4444;
 }
 
 /* base styles */
@@ -47,6 +47,10 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+p {
+  margin: 0;
 }
 
 /* ======== lets dive into real work ========= */
@@ -190,8 +194,9 @@ nav {
   transition: var(--transition);
   height: 64px;
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center;  
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
   font-size: 0.8125rem;
   color: var(--text-secondary);
 }
@@ -232,7 +237,8 @@ nav {
   position: relative;
 }
 
-.header-container select { /* just for sessions page*/
+.header-container select {
+  /* just for sessions page*/
   position: absolute;
   left: -112px;
   height: 100%;
@@ -352,7 +358,7 @@ nav {
   border-bottom: none;
 }
 
-.view-add-section input{
+.view-add-section input {
   width: 100%;
   padding: 0.75rem 1rem;
   background: var(--bg-primary);
@@ -440,6 +446,7 @@ nav {
   color: var(--text-secondary);
   margin-top: 0.125rem;
 }
+
 /* ----------------------------- */
 
 .sessions-page-container .card {
@@ -452,7 +459,8 @@ table {
   margin-top: 20px;
 }
 
-th, td {
+th,
+td {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
@@ -553,4 +561,119 @@ tr:hover td {
   color: var(--text-secondary);
   margin-bottom: 0.75rem;
   line-height: 1.4;
+}
+
+.sections {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.students-section {
+  width: 70%;
+}
+
+.students-section .input-container {
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.students-section .input-container:focus-within {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.input-container input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  margin-left: 10px;
+}
+
+.add-student-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 30px;
+  border-left: 1px solid var(--border-color);
+  height: 280px;
+}
+
+.add-student-section .add-student-btn {
+  background: var(--accent);
+  color: white;
+}
+
+.add-student-section .add-student-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.add-student-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-student-inputs input {
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  outline: none;
+}
+
+.dropdown button {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  width: 100%;
+}
+
+.dropdown ul {
+  width: 100%;
+}
+
+.dropdown li {text-align: center;}
+
+.dropdown a:hover {
+  cursor: pointer ;
+}
+
+.students-boxes {
+  margin-top: 20px;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.student {
+  background-color: var(--bg-primary);
+  padding: 20px;
+  cursor: pointer; 
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.student:hover {
+  scale: 1.02;
+  border-color: var(--accent);
+} 
+
+.student h1.student-name { 
+  font-size: 20px;
+  font-weight: 700;
 }

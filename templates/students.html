@@ -3,45 +3,59 @@
 {% block content %}
 
 <div class="students-page-container page-content">
+  <div class="section-intro">
+    <h1>Students</h1>
+  </div>
   <div class="sections">
     <div class="students-section">
-      <div class="input_container">
-        <input type="text" placeholder="Student Name">
-      </div>  
+      <div class="input-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" placeholder="Student Name" class="search-bar">
+      </div>
       <div class="students-boxes">
 
-        <div class="student">
+
+        <!-- <a class="student">
           <h1 class="student-name">Ahmed</h1>
           <div class="details">
             <div class="student-level">Level: <span>A1</span></div>
             <div class="next-lesson-number">Next Lesson: <span>5</span></div>
           </div>
-        </div>
-
-        <div class="student">
-          <h1 class="student-name">Ahmed</h1>
-          <div class="details">
-            <div class="student-level">Level: <span>A1</span></div>
-            <div class="next-lesson-number">Next Lesson: <span>5</span></div>
-          </div>
-        </div>
-
-        <div class="student">
-          <h1 class="student-name">Ahmed</h1>
-          <div class="details">
-            <div class="student-level">Level: <span>A1</span></div>
-            <div class="next-lesson-number">Next Lesson: <span>5</span></div>
-          </div>
-        </div>
-
+        </a> -->
 
       </div>
     </div>
     <div class="add-student-section">
-      <button class="add-student-btn btn">Add Student</button>
+      <button class="add-student-btn btn" onclick="add_student()"><i class="fa-solid fa-plus"></i>Add Student</button>
       <div class="add-student-inputs">
-        <input type="text" placeholder="student name">
-        <input type="text" placeholder="student level">
+        <input type="text" placeholder="student name" class="student-name-input">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle student-level" id="" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Student Level
+          </button>
+          <ul class="dropdown-menu levels-dropdown">
+            <!-- <li><a class="dropdown-item" href="#" onclick="select(this)">A1</a></li>
+            <li><a class="dropdown-item" href="#" onclick="select(this)">A2</a></li>
+            <li><a class="dropdown-item" href="#" onclick="select(this)">C2</a></li> -->
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle student-next-lesson" id="" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Next Lesson
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" id="1" onclick="select(this)">1</a></li>
+            <li><a class="dropdown-item" id="2" onclick="select(this)">2</a></li>
+            <li><a class="dropdown-item" id="3" onclick="select(this)">3</a></li>
+            <li><a class="dropdown-item" id="4" onclick="select(this)">4</a></li>
+            <li><a class="dropdown-item" id="5" onclick="select(this)">5</a></li>
+            <li><a class="dropdown-item" id="6" onclick="select(this)">6</a></li>
+            <li><a class="dropdown-item" id="7" onclick="select(this)">7</a></li>
+            <li><a class="dropdown-item" id="8" onclick="select(this)">8</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

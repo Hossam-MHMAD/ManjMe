@@ -185,27 +185,35 @@ def students():
 def get_students():
   db = get_db()
   curs = db.cursor()
-  rows = curs.execute("SELECT * FROM students").fetchall()
+  rows = curs.execute("""
+    SELECT students.*, levels.name AS level_name
+    FROM students
+    LEFT JOIN levels ON students.level_id = levels.id
+    """).fetchall()
 
   data = [dict(row) for row in rows]
-
-  return data
+  
+  return jsonify(data)
 
 @app.route("/api/students", methods=["POST"])
 def add_student():
   req = request.get_json()
 
-  if not req["name"] or not req["level_id"] or not req["next_lesson_num"]:
+  if not req["student_name"] or not req["level_id"] or not req["student_nxt_lesson"]:
     return {"error": "all student data is required (name, level, next lesson number)"}, 400
   
   db = get_db()
   curs = db.cursor()
 
-  curs.execute("INSERT INTO students(name, level_id, next_lesson) VALUES(?,?,?)", (req['name'], req['level_id'], req['next_lesson_num']))
+  curs.execute("INSERT INTO students(name, level_id, next_lesson) VALUES(?,?,?)", (req['student_name'], req['level_id'], req['student_nxt_lesson']))
 
   db.commit()
 
   return {"student_id": curs.lastrowid}, 201
+
+@app.route("/students/<int:student_id>")
+def student(student_id):
+  return render_template("student.html")
 
 if __name__ == "__main__":
   init_db()
