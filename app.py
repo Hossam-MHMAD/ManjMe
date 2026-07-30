@@ -63,6 +63,7 @@ def init_db():
     date TEXT,
     session_time REAL,
     given_lesson_id INTEGER,
+    lesson_note TEXT,
     FOREIGN KEY (student_id) REFERENCES students (id)
     FOREIGN KEY (given_lesson_id) REFERENCES lessons (id)
   );
@@ -214,6 +215,14 @@ def add_student():
 @app.route("/students/<int:student_id>")
 def student(student_id):
   return render_template("student.html")
+
+@app.route("/api/student/<int:student_id>")
+def get_student(student_id):
+  """
+  i should get data here from students tabel and one_to_one_sessions_enrollments (to get student history)
+  """
+
+  pass
 
 if __name__ == "__main__":
   init_db()
