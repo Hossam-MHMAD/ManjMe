@@ -215,7 +215,6 @@ async function get_lesson(lesson_id, lesson) {
 }
 
 // students page
-
 function select(element) {
   const dropdownParent = element.closest('.dropdown');
   const button = dropdownParent.querySelector('button');
@@ -304,6 +303,8 @@ function filter_students() {
     }
   });
 }
+
+//student page
 
 
 

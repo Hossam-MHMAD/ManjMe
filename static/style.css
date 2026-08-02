@@ -646,10 +646,12 @@ tr:hover td {
   width: 100%;
 }
 
-.dropdown li {text-align: center;}
+.dropdown li {
+  text-align: center;
+}
 
 .dropdown a:hover {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .students-boxes {
@@ -662,7 +664,7 @@ tr:hover td {
 .student {
   background-color: var(--bg-primary);
   padding: 20px;
-  cursor: pointer; 
+  cursor: pointer;
   border-radius: 10px;
   border: 1px solid var(--border-color);
   transition: var(--transition);
@@ -671,9 +673,77 @@ tr:hover td {
 .student:hover {
   scale: 1.02;
   border-color: var(--accent);
-} 
+}
 
-.student h1.student-name { 
+.student h1.student-name {
   font-size: 20px;
   font-weight: 700;
+}
+
+.student-page-container .section-intro {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.student-profile-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #04264e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 24px;
+  color: #6DA7EC;
+}
+
+.student-data {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+.student-data .student-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.student-data .student-details {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.start-lesson-btn {
+  background: var(--accent);
+  color: white;
+  position: absolute;
+  transition: var(--transition);
+  top: 100px;
+}
+
+.start-msg {
+  font-size: 12px;
+  background: #11260F;
+  color: #0CA30C;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus-visible,
+.btn:first-child:active {
+  background-color: var(--accent-hover);
+}
+
+.line {
+  width: 75%;
+  height: 1px;
+  background-color: var(--border-color);
+  position: relative;
+  left: 15%;
+  margin-top: 10px;
 }
