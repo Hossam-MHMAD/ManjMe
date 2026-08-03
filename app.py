@@ -64,6 +64,7 @@ def init_db():
     session_time REAL,
     given_lesson_id INTEGER,
     lesson_note TEXT,
+    day TEXT,
     FOREIGN KEY (student_id) REFERENCES students (id)
     FOREIGN KEY (given_lesson_id) REFERENCES lessons (id)
   );

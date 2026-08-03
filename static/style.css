@@ -746,4 +746,281 @@ tr:hover td {
   position: relative;
   left: 15%;
   margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.student-history p {
+  color: var(--text-secondary);
+}
+
+.sections-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: 300%;
+  transition: transform 0.3s ease;
+  transform: translateX(calc(-100%/3));
+  /* history is centered by default */
+}
+
+.track>* {
+  width: calc(100%/3);
+  flex-shrink: 0;
+}
+
+.show-notes-btn {
+  background-color: var(--accent);
+  color: var(--text-primary);
+  padding: 5px 20px;
+}
+
+.student-history td,
+th {
+  text-align: center;
+}
+
+.student-history table {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* start lesson screen */
+
+.session-panel{
+  display: flex;
+  gap: 1.25rem;
+  max-width: 900px;
+  align-items: flex-start;
+  width: calc(100%/3);
+}
+
+.questions-card {
+  flex: 0 0 220px;
+  background: #1c1c1c;
+  border: 1px solid #2c2c2c;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+}
+
+.questions-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: #8a8f98;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.questions-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.questions-card li {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #c7c9cd;
+  padding-left: 0.85rem;
+  position: relative;
+}
+
+.questions-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #3b9eff;
+}
+
+/* -------- right card: notes -------- */
+
+.notes-card {
+  flex: 1;
+  background: #1c1c1c;
+  border: 1px solid #3b6fd6;
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem 1.1rem;
+}
+
+.notes-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f2f2f2;
+  margin-bottom: 0.75rem;
+}
+
+#notes {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  background: #161616;
+  border: 1px solid #333;
+  border-radius: 8px;
+  /* padding: 0.85rem 1rem; */
+  color: #e6e6e6;
+  font-size: 14.5px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+/* Notes Container */
+#notes {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Grid */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid #3d3d3d;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #181818;
+    min-height: 500px;
+}
+
+/* Column */
+.note-column {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #3d3d3d;
+}
+
+.note-column:last-child {
+    border-right: none;
+}
+
+/* Header */
+.note-header {
+    background: #252525;
+    color: #4ea3ff;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 14px;
+    border-bottom: 1px solid #3d3d3d;
+    letter-spacing: .5px;
+}
+
+/* Textarea */
+.note-column textarea {
+    flex: 1;
+    min-height: 500px;
+    resize: none;
+    border: none;
+    outline: none;
+
+    background: #181818;
+    color: #f1f1f1;
+
+    padding: 18px;
+    font-size: 17px;
+    line-height: 1.7;
+    font-family: inherit;
+}
+
+/* Placeholder */
+.note-column textarea::placeholder {
+    color: #8a8a8a;
+}
+
+/* Focus */
+.note-column textarea:focus {
+    background: #202020;
+}
+
+/* Scrollbar */
+.note-column textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+.note-column textarea::-webkit-scrollbar-thumb {
+    background: #4ea3ff;
+    border-radius: 10px;
+}
+
+.note-column textarea::-webkit-scrollbar-track {
+    background: #1b1b1b;
+}
+
+
+
+#notes::placeholder {
+  color: #6f7278;
+}
+
+#notes:focus {
+  outline: none;
+  border-color: #3b9eff;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: #3a3a3a;
+  color: #d5d5d5;
+}
+
+.btn-ghost:hover {
+  background: #262626;
+}
+
+.btn-primary {
+  background: transparent;
+  border-color: #4a4a4a;
+  color: #f2f2f2;
+}
+
+.btn-primary:hover {
+  background: #262626;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .note-column {
+        border-right: none;
+        border-bottom: 1px solid #3d3d3d;
+    }
+
+    .note-column:last-child {
+        border-bottom: none;
+    }
+
+    .note-column textarea {
+        min-height: 220px;
+    }
 }

@@ -305,7 +305,20 @@ function filter_students() {
 }
 
 //student page
+function move_screens(left=false, reset=true, right=false) {
+  const screens_container = document.querySelector(".track")
+  const start_lesson_btn = document.querySelector(".start-lesson-btn")
 
+
+  if (reset) { // see history
+    screens_container.style.transform = "translateX(calc(-100%/3))";
+  } else if (left) { // start lesson
+    screens_container.style.transform = "translateX(0)";
+    start_lesson_btn.style.top = "-10px";
+  } else if (right) { // see certain session note
+    screens_container.style.transform = "translateX(calc(-100%/1.5))";
+  }
+}
 
 
 // home page

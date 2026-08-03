@@ -10,17 +10,101 @@
       </div>
       <div class="student-info">
         <h1 class="student-name">Ahmed Yonis</h1>
-        <div class="student-details">Level: <span class="student-level">A2</span> · Next lesson: <span class="student-next-lesson">7</span></div>
+        <div class="student-details">Level: <span class="student-level">A2</span> · Next lesson: <span
+            class="student-next-lesson">7</span></div>
       </div>
     </div>
     <div class="start-session-part">
-      <button class="start-lesson-btn btn"><i class="fa-solid fa-play"></i>Start Session</button>
+      <button onclick="move_screens(true, false, false)" class="start-lesson-btn btn"><i
+          class="fa-solid fa-play"></i>Start Session</button>
       <div class="start-msg">session in progress</div>
     </div>
   </div>
   <div class="line"></div>
   <div class="sections-container">
+    <div class="track">
+      <div class="screen add-session">
+        <!-- new session form + note textarea -->
+        <div class="session-panel">
+          <div class="questions-card">
+            <h2>Ask the student</h2>
+            <ul>
+              <li>What did you practice since last time?</li>
+              <li>Which part felt hardest today?</li>
+              <li>Can you show me what you learned?</li>
+              <li>Any words or sounds you're unsure about?</li>
+              <li>How confident do you feel on this lesson?</li>
+            </ul>
+          </div>
 
+          <div class="notes-card">
+            <p class="notes-label">Lesson 7 notes</p>
+            <div id="notes">
+              <div class="notes-grid">
+
+                <div class="note-column">
+                  <div class="note-header">Pronunciation</div>
+                  <textarea placeholder="Write pronunciation notes..."></textarea>
+                </div>
+
+                <div class="note-column">
+                  <div class="note-header">Word Choice</div>
+                  <textarea placeholder="Write word choice notes..."></textarea>
+                </div>
+
+                <div class="note-column">
+                  <div class="note-header">Grammar</div>
+                  <textarea placeholder="Write grammar notes..."></textarea>
+                </div>
+
+                <div class="note-column">
+                  <div class="note-header">New Vocabulary</div>
+                  <textarea placeholder="Write new vocabulary..."></textarea>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn btn-ghost" type="button">Cancel</button>
+              <button class="btn btn-primary" type="button">
+                <i class="fa-solid fa-check"></i>
+                End &amp; save session
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="screen student-history">
+        <!-- default view: student data, start session button, sessions table -->
+        <p>Sessions History</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Day</th>
+              <th>Lesson</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2/3/2026</td>
+              <td>Sat</td>
+              <td>4</td>
+              <td><button class="show-notes-btn btn">See Notes</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="screen session-notes">
+        <!-- populated dynamically when "See notes" is clicked -->
+        SESSION NOTE
+      </div>
+    </div>
   </div>
 </div>
 
