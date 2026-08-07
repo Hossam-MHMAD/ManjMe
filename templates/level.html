@@ -4,13 +4,39 @@
 
 <div class="level-page-container page-content">
   <div class="section-intro">
-    <h1><span class="level-txt"></span> Sessions</h1> 
+    <h1><span class="level-txt"></span> Sessions</h1>
   </div>
   <div class="view-add-section card">
     <div class="section-current-role">view mode</div>
-    <input class="session-title" type="text" placeholder="session number" readonly>
-    <textarea class="session-content" placeholder="session content" readonly></textarea>
-    <button class="add-session btn" onclick="add_lesson()"><i class="fa-solid fa-plus"></i>Add Session</button>
+    <input class="session-title" type="text" placeholder="Session Number" readonly>
+
+    <div class="session-questions">
+      <!-- Main Question -->
+      <div class="main-question">
+        <div class="question-header">
+          <span>Main Question</span>
+          <button class="add-follow-btn" type="button" onclick="add_followUP_question(this)">
+            + Follow-up
+          </button>
+        </div>
+        <textarea class="question-input main-q-inpt" placeholder="Write the main question..." readonly></textarea>
+        <div class="followups">
+          <!-- Follow-up -->
+          <div class="followup-question">
+            <span>↳ Follow-up</span>
+            <textarea class="question-input followUP-q-inpt" placeholder="Write a follow-up question..." readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="add-main-btn" onclick="add_main_question()" type="button">
+      + Add Main Question
+    </button>
+
+    <button class="add-session btn" onclick="add_lesson()">
+      <i class="fa-solid fa-plus"></i>
+      Add Session
+    </button>
   </div>
   <div class="sessions-container">
     <!-- <div>session 1</div>

@@ -122,15 +122,34 @@ function edit_mode() {
   const inputs_section = document.querySelector(".view-add-section")
   const current_role = document.querySelector(".view-add-section .section-current-role")
   const input = document.querySelector(".view-add-section input")
-  const textarea = document.querySelector(".view-add-section textarea")
+
+  const textares_container = document.querySelector(".session-questions")
+  textares_container.innerHTML = "";
+  textares_container.innerHTML = `
+  <!-- Main Question -->
+  <div class="main-question">
+    <div class="question-header">
+      <span>Main Question</span>
+      <button class="add-follow-btn" type="button" onclick="add_followUP_question(this)">
+        + Follow-up
+      </button>
+    </div>
+    <textarea class="question-input main-q-inpt" placeholder="Write the main question..."></textarea>
+    <div class="followups">
+      <!-- Follow-up -->
+      <div class="followup-question">
+        <span>↳ Follow-up</span>
+        <textarea class="question-input followUP-q-inpt" placeholder="Write a follow-up question..."></textarea>
+      </div>
+    </div>
+  </div>
+  `;
 
   const choosed_lesson = document.querySelector(".choosed")
   if (choosed_lesson) choosed_lesson.classList.remove("choosed");
 
   input.readOnly = false;
-  textarea.readOnly = false;
   input.value = "";
-  textarea.value = "";
   current_role.textContent = "edit mode";
   current_role.style.color = "#38BDF8";
 }
@@ -139,33 +158,135 @@ function view_mode() {
   const inputs_section = document.querySelector(".view-add-section")
   const current_role = document.querySelector(".view-add-section .section-current-role")
   const input = document.querySelector(".view-add-section input")
-  const textarea = document.querySelector(".view-add-section textarea")
+  const textares_container = document.querySelector(".session-questions")
 
   input.value = "";
-  textarea.value = "";
   input.readOnly = true;
-  textarea.readOnly = true;
+  
   current_role.textContent = "view mode";
   current_role.style.color = "#EF4444";
+
+  textares_container.innerHTML = "";
+  textares_container.innerHTML = `
+  <!-- Main Question -->
+  <div class="main-question">
+    <div class="question-header">
+      <span>Main Question</span>
+      <button class="add-follow-btn" type="button" onclick="add_followUP_question(this)">
+        + Follow-up
+      </button>
+    </div>
+    <textarea class="question-input main-q-inpt" placeholder="Write the main question..." readonly></textarea>
+    <div class="followups">
+      <!-- Follow-up -->
+      <div class="followup-question">
+        <span>↳ Follow-up</span>
+        <textarea class="question-input followUP-q-inpt" placeholder="Write a follow-up question..." readonly></textarea>
+      </div>
+    </div>
+  </div>
+  `;
+}
+
+function add_main_question() {
+  const current_role = document.querySelector(".view-add-section .section-current-role");
+  if (current_role.textContent === "view mode") return;
+
+  const container = document.querySelector(".session-questions");
+
+  const mainQuestion = document.createElement("div");
+  mainQuestion.className = "main-question";
+
+  mainQuestion.innerHTML = `
+  <div class="question-header">
+    <span>Main Question</span>
+    <button class="add-follow-btn" type="button" onclick="add_followUP_question(this)">
+      + Follow-up
+    </button>
+  </div>
+  <textarea class="question-input main-q-inpt" placeholder="Write the main question..."></textarea>
+  <div class="followups">
+    <div class="followup-question">
+      <span>↳ Follow-up</span>
+      <textarea class="question-input followUP-q-inpt" placeholder="Write a follow-up question..."></textarea>
+    </div>
+  </div>
+    `;
+
+  container.appendChild(mainQuestion);
+}
+
+function add_followUP_question(new_followUP_btn) {
+  const current_role = document.querySelector(".view-add-section .section-current-role");
+  if (current_role.textContent === "view mode") return;
+
+  const container = new_followUP_btn
+    .closest(".main-question")
+    .querySelector(".followups");
+
+  const followup = document.createElement("div");
+  followup.className = "followup-question";
+
+  followup.innerHTML = `
+    <span>↳ Follow-up</span>
+    <textarea class="question-input followUP-q-inpt" placeholder="Write a follow-up question..."></textarea>
+  `;
+
+  container.appendChild(followup);
 }
 
 async function add_lesson() {
-  const current_role = document.querySelector(".view-add-section .section-current-role")
+  const current_mode = document.querySelector(".view-add-section .section-current-role")
   const input = document.querySelector(".view-add-section input")
-  const textarea = document.querySelector(".view-add-section textarea")
+  const textareas = document.querySelectorAll(".session-questions textarea")
 
-  if (current_role.textContent === "view mode") edit_mode();
-  else if (current_role.textContent === "edit mode") {
-    if (input.value.trim() === "" || textarea.value.trim() === "" || !/^\d+$/.test(input.value.trim())) return;
+  const all_questions_containers = document.querySelectorAll(".main-question")
+
+
+  if (current_mode.textContent === "view mode") edit_mode();
+
+  else if (current_mode.textContent === "edit mode") {
+    if (input.value.trim() === "" || !/^\d+$/.test(input.value.trim())) return; // first check
+
+    // second check
+    for (const txtarea of textareas) {
+      if (txtarea.value.trim() === "") {
+        alert("Please fill all questions.");
+        return; // This returns from your outer function.
+      }
+    }
+
     const num = Number(input.value.trim())
     if (num < 1 || num > 8) return;
+
+    let questions = []; // this here is the content array of objects {main: "Tell me about yourself", followUPS: ["why", "tell me"]}
+
+    all_questions_containers.forEach(question_container => {
+      const main_Qs_input = question_container.querySelector(".main-q-inpt");
+      const followUP_Qs_inputs = question_container.querySelectorAll(".followUP-q-inpt");
+
+      let question = {};
+
+      question.main_question = main_Qs_input.value.trim(); // add main question
+
+      let followUPS_Qs = []; // get all follow ups
+      followUP_Qs_inputs.forEach(followUP_question => {
+        followUPS_Qs.push(followUP_question.value.trim());
+      });
+
+      question.followUPs = followUPS_Qs; // add follow ups questions
+
+      questions.push(question);
+    })
+
+    console.log(questions);
 
     const level_id = window.location.pathname.split("/").pop();
 
     await fetch(APIs.lessons(level_id), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ number: num, content: textarea.value.trim() })
+      body: JSON.stringify({ number: num, content: questions })
     })
 
     view_mode();
@@ -203,15 +324,14 @@ async function get_lesson(lesson_id, lesson) {
   const response = await fetch(APIs.lesson(lesson_id))
   const data = await response.json()
 
-  const input = document.querySelector(".view-add-section input")
-  const textarea = document.querySelector(".view-add-section textarea")
-
   const choosed_lesson = document.querySelector(".choosed")
   if (choosed_lesson) choosed_lesson.classList.remove("choosed");
   lesson.classList.add("choosed")
 
+  const input = document.querySelector(".view-add-section input")
+  
+
   input.value = data.number;
-  textarea.value = data.questions;
 }
 
 // students page
@@ -289,13 +409,13 @@ async function init_students_page() {
 function filter_students() {
   const input_field = document.querySelector("input.search-bar")
   const text = input_field.value.trim().toLowerCase()
-  
+
   const students = document.querySelectorAll(".student");
-  
+
   students.forEach(student => {
-    
+
     const title = student.querySelector("h1.student-name").textContent.toLowerCase();
-    
+
     if (title.includes(text)) {
       student.style.display = "";
     } else {
@@ -305,7 +425,7 @@ function filter_students() {
 }
 
 //student page
-function move_screens(left=false, reset=true, right=false) {
+function move_screens(left = false, reset = true, right = false) {
   const screens_container = document.querySelector(".track")
   const start_lesson_btn = document.querySelector(".start-lesson-btn")
 
@@ -368,7 +488,7 @@ if (document.querySelector(".sessions-page-container")) {
   init_level_page();
 } else if (document.querySelector(".students-page-container")) {
   init_students_page();
-  document.querySelector("input.search-bar").addEventListener("input", function() {
+  document.querySelector("input.search-bar").addEventListener("input", function () {
     filter_students()
   })
 }

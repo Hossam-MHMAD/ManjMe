@@ -368,21 +368,91 @@ nav {
   font-size: 22px;
 }
 
-.view-add-section textarea {
+.session-questions {
   margin-top: 20px;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  color: var(--text-primary);
-  height: 300px;
-  resize: none;
-  font-size: 22px;
-  white-space: pre-wrap;
 }
 
-.view-add-section button {
+.main-question {
+  background: #202020;
+  border: 1px solid #363636;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.question-header span {
+  color: #46b5ff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.question-input {
+  width: 100%;
+  max-height: 55px;
+  resize: none;
+  box-sizing: border-box;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 16px;
+  outline: none;
+  overflow: hidden;
+}
+
+.question-input:focus {
+  border-color: #46b5ff;
+}
+
+.followups {
+  margin-top: 18px;
+  margin-left: 35px;
+  padding-left: 18px;
+  border-left: 2px solid #46b5ff;
+}
+
+.followup-question {
+  margin-top: 18px;
+}
+
+.followup-question span {
+  display: block;
+  color: #9ecfff;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.add-main-btn,
+.add-follow-btn {
+  background: #38b6ff;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 9px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.add-main-btn {
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+.add-main-btn:hover,
+.add-follow-btn:hover {
+  background: #239ce7;
+}
+
+.view-add-section .add-session {
   background: var(--accent);
   color: white;
   margin-top: 15px;
@@ -789,7 +859,7 @@ th {
 
 /* start lesson screen */
 
-.session-panel{
+.session-panel {
   display: flex;
   gap: 1.25rem;
   max-width: 900px;
@@ -876,83 +946,83 @@ th {
 
 /* Notes Container */
 #notes {
-    width: 100%;
-    margin-top: 20px;
+  width: 100%;
+  margin-top: 20px;
 }
 
 /* Grid */
 .notes-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border: 1px solid #3d3d3d;
-    border-radius: 10px;
-    overflow: hidden;
-    background: #181818;
-    min-height: 500px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid #3d3d3d;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #181818;
+  min-height: 500px;
 }
 
 /* Column */
 .note-column {
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid #3d3d3d;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #3d3d3d;
 }
 
 .note-column:last-child {
-    border-right: none;
+  border-right: none;
 }
 
 /* Header */
 .note-header {
-    background: #252525;
-    color: #4ea3ff;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-    padding: 14px;
-    border-bottom: 1px solid #3d3d3d;
-    letter-spacing: .5px;
+  background: #252525;
+  color: #4ea3ff;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  padding: 14px;
+  border-bottom: 1px solid #3d3d3d;
+  letter-spacing: .5px;
 }
 
 /* Textarea */
 .note-column textarea {
-    flex: 1;
-    min-height: 500px;
-    resize: none;
-    border: none;
-    outline: none;
+  flex: 1;
+  min-height: 500px;
+  resize: none;
+  border: none;
+  outline: none;
 
-    background: #181818;
-    color: #f1f1f1;
+  background: #181818;
+  color: #f1f1f1;
 
-    padding: 18px;
-    font-size: 17px;
-    line-height: 1.7;
-    font-family: inherit;
+  padding: 18px;
+  font-size: 17px;
+  line-height: 1.7;
+  font-family: inherit;
 }
 
 /* Placeholder */
 .note-column textarea::placeholder {
-    color: #8a8a8a;
+  color: #8a8a8a;
 }
 
 /* Focus */
 .note-column textarea:focus {
-    background: #202020;
+  background: #202020;
 }
 
 /* Scrollbar */
 .note-column textarea::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .note-column textarea::-webkit-scrollbar-thumb {
-    background: #4ea3ff;
-    border-radius: 10px;
+  background: #4ea3ff;
+  border-radius: 10px;
 }
 
 .note-column textarea::-webkit-scrollbar-track {
-    background: #1b1b1b;
+  background: #1b1b1b;
 }
 
 
@@ -1007,20 +1077,20 @@ th {
 
 /* Responsive */
 @media (max-width: 900px) {
-    .notes-grid {
-        grid-template-columns: 1fr;
-    }
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .note-column {
-        border-right: none;
-        border-bottom: 1px solid #3d3d3d;
-    }
+  .note-column {
+    border-right: none;
+    border-bottom: 1px solid #3d3d3d;
+  }
 
-    .note-column:last-child {
-        border-bottom: none;
-    }
+  .note-column:last-child {
+    border-bottom: none;
+  }
 
-    .note-column textarea {
-        min-height: 220px;
-    }
+  .note-column textarea {
+    min-height: 220px;
+  }
 }

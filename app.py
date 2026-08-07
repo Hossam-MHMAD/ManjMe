@@ -44,9 +44,22 @@ def init_db():
   CREATE TABLE IF NOT EXISTS lessons (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     number INTEGER NOT NULL,
-    questions TEXT NOT NULL,
     level_id INTEGER,
     FOREIGN KEY (level_id) REFERENCES levels (id)
+  );
+
+  CREATE TABLE IF NOT EXISTS main_questions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question TEXT,
+    lesson_id INTEGER,
+    FOREIGN KEY (lesson_id) REFERENCES lessons (id)
+  );
+
+  CREATE TABLE IF NOT EXISTS follow_up_questions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question TEXT,
+    main_question_id INTEGER,
+    FOREIGN KEY (main_question_id) REFERENCES main_questions (id)
   );
   
   CREATE TABLE IF NOT EXISTS students (
@@ -144,6 +157,8 @@ def add_level():
 def level(level_id):
   return render_template("level.html")
 
+
+# lessons section
 @app.route("/api/<int:level_id>/sessions", methods=["POST"])
 def add_lesson(level_id):
   req = request.get_json()
@@ -154,7 +169,19 @@ def add_lesson(level_id):
   db = get_db()
   curs = db.cursor()
 
-  curs.execute("INSERT INTO lessons(number, questions, level_id) VALUES(?,?,?)", (req["number"], req["content"], level_id))
+  curs.execute("INSERT INTO lessons(number, level_id) VALUES(?,?)", (req["number"], level_id))
+
+  lesson_id = curs.lastrowid
+  questions_containers = req["content"]
+
+  for question in questions_containers:
+    curs.execute("INSERT INTO main_questions(question, lesson_id) VALUES(?,?)", (question["main_question"], lesson_id))
+
+    main_question_id = curs.lastrowid
+
+    followUPs_questions = question["followUPs"]
+    for followUP_q in followUPs_questions:
+      curs.execute("INSERT INTO follow_up_questions(question, main_question_id) VALUES(?,?)", (followUP_q, main_question_id))
 
   db.commit()
 
@@ -179,6 +206,7 @@ def get_lesson(lesson_id):
   row = curs.execute("SELECT * FROM lessons WHERE id = ?", (lesson_id,)).fetchone()
   return jsonify(dict(row))
 
+# students section
 @app.route("/students")
 def students():
   return render_template("students.html")
